@@ -43,7 +43,7 @@ class SimpleGraph:
 
   def load(self, filename):
     f = open(filename, "r", encoding='utf-8')
-    reader = csv.reader(f)
+    reader = csv.reader(f, skipinitialspace=True, delimiter=',')
     for sub, pred, obj in reader:
       #sub = unicode(sub, "UTF-8") 
       #pred = unicode(pred, "UTF-8") 

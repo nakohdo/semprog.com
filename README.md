@@ -14,7 +14,8 @@ https://www.oreilly.com/library/view/programming-the-semantic/9780596802141/
 Looks like I am not the only one who has been working with the examples from the book:
 
 - **[violetyk](https://github.com/violetyk)** saved the comeplete code from the book!  
-https://github.com/violetyk/study-semantic-web
+https://github.com/violetyk/study-semantic-web  
+My fork: https://github.com/nakohdo/study-semantic-web  
 
 - **[debmalya](https://github.com/debmalya)** started a similar endeavour as me.  
 https://github.com/debmalya/SemanticWeb

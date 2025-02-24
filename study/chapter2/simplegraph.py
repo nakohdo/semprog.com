@@ -45,9 +45,6 @@ class SimpleGraph:
     f = open(filename, "r", encoding='utf-8')
     reader = csv.reader(f, skipinitialspace=True, delimiter=',')
     for sub, pred, obj in reader:
-      #sub = unicode(sub, "UTF-8") 
-      #pred = unicode(pred, "UTF-8") 
-      #obj = unicode(obj, "UTF-8")
       self.add(sub, pred, obj)
     f.close()
 
@@ -116,4 +113,41 @@ class SimpleGraph:
       if pred is None: return retPred
       if obj is None: return retObj
       break
-    return None    
+    return None
+
+  def query(self, clauses):
+    bindings = None
+    for clause in clauses:
+      bpos = {}
+      qc = []
+      for pos, c in enumerate(clause):
+        if c.startswith('?'):
+          qc.append(None)
+          bpos[c] = pos
+        else:
+          qc.append(c)
+      rows = list(self.triples(qc[0], qc[1], qc[2]))
+      if bindings is None:
+        # This is the first pass so everything matches
+        bindings = []
+        for row in rows:
+          binding = {}
+          for var, pos in bpos.items():
+            binding[var] = row[pos]
+            bindings.append(binding)
+      else:
+        # In subsequent passes, eliminate bindings that don't work
+        newb = []
+        for binding in bindings:
+          for row in rows:
+            validmatch = True
+            tempbinding = binding.copy()
+            for var, pos in bpos.items():
+              if var in tempbinding:
+                if tempbinding[var] != row[pos]:
+                  validmatch = False
+              else:
+                tempbinding[var] = row[pos]
+            if validmatch: newb.append(tempbinding)
+        bindings = newb
+    return bindings

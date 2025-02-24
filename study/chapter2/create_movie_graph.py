@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
-
+# %%
 # Import class
 from simplegraph import SimpleGraph
 
 # Create instance
 movie_graph = SimpleGraph()
+
+# Load movie data
+movie_graph.load('movies.csv')
+
+# %%
 
 # Add triples
 # movie_graph.add('blade_runner', 'name', 'Blade Runner')
